@@ -1,12 +1,13 @@
 from tad_list import List
 from nodes import SingleListNode
 from exceptions import EmptyListException, InvalidPositionException
+from tad_iterator import Iterator
 
 class SinglyLinkedList(List):
     def __init__(self):
         self.head = None
         self.tail = None
-        self.sz = None
+        self.sz = 0
 
     # Returns true iff the list contains no elements.
     def is_empty(self):
@@ -140,6 +141,10 @@ class SinglyLinkedList(List):
     def make_empty(self):
         self.head = None
         self.tail = None
+        self.sz = 0
 
     # Returns an iterator of the elements in the list (in proper sequence).
-    def iterator(self): pass
+    def iterator(self):
+        itt = l.Iterator()
+        while itt.has_next():
+            e = itt.next()
