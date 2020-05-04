@@ -1,5 +1,6 @@
 from tad_list import List
 from nodes import SingleListNode
+from exceptions import EmptyListException, InvalidPositionException
 
 class SinglyLinkedList(List):
     def __init__(self):
@@ -18,12 +19,18 @@ class SinglyLinkedList(List):
     # Returns the first element of the list.
     # Throws EmptyListException.
     def get_first(self):
-        return self.head
+        if self.is_empty() == True:
+            raise EmptyListException()
+        else:
+            return self.head
 
     # Returns the last element of the list.
     # Throws EmptyListException.
     def get_last(self):
-        return self.tail
+        if self.size() == 0:
+            raise EmptyListException()
+        else:
+            return self.tail
 
     # Returns the element at the specified position in the list.
     # Range of valid positions: 0, ..., size()-1.
@@ -64,58 +71,70 @@ class SinglyLinkedList(List):
     # If the specified position is size(), insert corresponds to insertLast.
     # Throws InvalidPositionException.
     def insert(self, element, position):
-        if position == 0:
-            old_node = self.get_first()
-            nxt_node = old_node.get_next()
-            self.insert_first(element)
-            new_node = self.get_first()
-            new_node.set_next(nxt_node)
-            self.sz += 1
-        elif position == self.size()-1:
-            self.insert_last(element)
-            self.sz += 1
+        if element > self.size() and element < 0:
+            raise InvalidPositionException()
         else:
-            node = self.get_first()
-            for i in range(self.size()-1):
-                node_nxt = node.get_next()
-                if i == position:
-                    self.sz += 1
-                    new_node = SingleListNode(element,node_nxt)
-                    node_bfr.set_next(new_node)
-                else:
-                    node_bfr = node
-                    node = node_nxt
+            if position == 0:
+                old_node = self.get_first()
+                nxt_node = old_node.get_next()
+                self.insert_first(element)
+                new_node = self.get_first()
+                new_node.set_next(nxt_node)
+                self.sz += 1
+            elif position == self.size()-1:
+                self.insert_last(element)
+                self.sz += 1
+            else:
+                node = self.get_first()
+                for i in range(self.size()-1):
+                    node_nxt = node.get_next()
+                    if i == position:
+                        self.sz += 1
+                        new_node = SingleListNode(element,node_nxt)
+                        node_bfr.set_next(new_node)
+                    else:
+                        node_bfr = node
+                        node = node_nxt
 
     # Removes and returns the element at the first position in the list.
     # Throws EmptyListException.
     def remove_first(self):
-        self.sz -= 1
-        node = self.get_first()
-        self.insert_first(node.get_next())
-        return node.get_element()
+        if self.is_empty() == True:
+            raise EmptyListException()
+        else:
+            self.sz -= 1
+            node = self.get_first()
+            self.insert_first(node.get_next())
+            return node.get_element()
 
     # Removes and returns the element at the last position in the list.
     # Throws EmptyListException.
     def remove_last(self):
-        self.sz -= 1
-        node = self.get_last()
-        self.tail = None
-        return node.get_element()
+        if self.size() == 0:
+            raise EmptyListException()
+        else:
+            self.sz -= 1
+            node = self.get_last()
+            self.tail = None
+            return node.get_element()
 
     # Removes and returns the element at the specified position in the list.
     # Range of valid positions: 0, ..., size()-1.
     # Throws InvalidPositionException.
     def remove(self, position):
-        node = self.get_first()
-        for i in range(self.size()-1):
-            node_nxt = node.get_next()
-            if i == position:
-                self.sz -= 1
-                node_bfr.set_next(node_nxt)
-                return node.get_element()
-            else:
-                node_bfr = node
-                node = node_nxt
+        if element > self.size() and element < 0:
+            raise InvalidPositionException()
+        else:
+            node = self.get_first()
+            for i in range(self.size()-1):
+                node_nxt = node.get_next()
+                if i == position:
+                    self.sz -= 1
+                    node_bfr.set_next(node_nxt)
+                    return node.get_element()
+                else:
+                    node_bfr = node
+                    node = node_nxt
 
     # Removes all elements from the list.
     def make_empty(self):
