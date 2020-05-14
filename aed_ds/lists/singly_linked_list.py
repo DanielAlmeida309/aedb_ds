@@ -96,7 +96,7 @@ class SinglyLinkedList(List):
         else:
             if position == 0:
                 self.insert_first(element)
-            elif position == self.size()-1:
+            elif position == self.size():
                 self.insert_last(element)
             else:
                 current_node = self.head
