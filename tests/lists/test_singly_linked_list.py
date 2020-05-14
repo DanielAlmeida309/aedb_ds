@@ -79,7 +79,7 @@ class TestSinglyLinkedList(unittest.TestCase):
         self.add_elements(4, shift=1)
         self.list.insert("element X", 2)
         self.assertEqual(self.list.get(2), "element X")
-        self.list.insert("last element", self.list.size()-1)
+        self.list.insert("last element", self.list.size())
         self.assertEqual(self.list.get_last(), "last element")
         with self.assertRaises(InvalidPositionException):
             self.list.insert("element bean", 42)
