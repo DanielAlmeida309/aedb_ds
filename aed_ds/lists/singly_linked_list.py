@@ -93,7 +93,7 @@ class SinglyLinkedList(List):
     # If the specified position is size(), insert corresponds to insertLast.
     # Throws InvalidPositionException.
     def insert(self, element, position):
-        if element > self.size() and element < 0:
+        if element >= self.size() and element < 0:
             raise InvalidPositionException()
         else:
             if position == 0:
