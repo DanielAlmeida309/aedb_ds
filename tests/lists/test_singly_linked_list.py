@@ -8,11 +8,11 @@ from aed_ds.lists.tad_iterator import Iterator
 class TestSinglyLinkedList(unittest.TestCase):
     def setUp(self):
         self.list = SinglyLinkedList()
-        
+
     def add_elements(self, quantity, shift=0):
         for i in range(quantity):
             self.list.insert_last(f"element {i+1+shift}")
-    
+
     def remove_elements(self, quantity):
         for _ in range(quantity):
             self.list.remove_last()
@@ -40,7 +40,7 @@ class TestSinglyLinkedList(unittest.TestCase):
             self.list.get_last()
         self.add_elements(3)
         self.assertEqual(self.list.get_last(), "element 3")
-    
+
     def test_get(self):
         with self.assertRaises(EmptyListException):
             self.list.get(0)
@@ -80,7 +80,7 @@ class TestSinglyLinkedList(unittest.TestCase):
         self.list.insert("element X", 2)
         self.assertEqual(self.list.get(2), "element X")
         self.list.insert("last element", self.list.size()-1)
-        self.assertEqual(self.list.get_last(), "las_element")
+        self.assertEqual(self.list.get_last(), "last element")
         with self.assertRaises(InvalidPositionException):
             self.list.insert("element bean", 42)
 
@@ -90,7 +90,7 @@ class TestSinglyLinkedList(unittest.TestCase):
         self.add_elements(5)
         self.list.remove_first()
         self.assertEqual(self.list.get_first(), "element 2")
-    
+
     def test_remove_first_single_element(self):
         self.list.make_empty()
         self.add_elements(1)
@@ -101,17 +101,17 @@ class TestSinglyLinkedList(unittest.TestCase):
 
         with self.assertRaises(EmptyListException):
             self.list.get(0)
-        
+
         with self.assertRaises(EmptyListException):
             self.list.get_last()
-        
+
         with self.assertRaises(EmptyListException):
             self.list.get_first()
-        
+
         self.assertTrue(self.list.is_empty())
-        
+
         self.assertEqual(self.list.find("element 1"), -1)
-        
+
         self.add_elements(1)
         self.assertEqual(self.list.get_first(), "element 1")
         self.assertEqual(self.list.get_last(), "element 1")
@@ -134,17 +134,17 @@ class TestSinglyLinkedList(unittest.TestCase):
 
         with self.assertRaises(EmptyListException):
             self.list.get(0)
-        
+
         with self.assertRaises(EmptyListException):
             self.list.get_last()
-        
+
         with self.assertRaises(EmptyListException):
             self.list.get_first()
-        
+
         self.assertTrue(self.list.is_empty())
-        
+
         self.assertEqual(self.list.find("element 1"), -1)
-        
+
         self.add_elements(1)
         self.assertEqual(self.list.get_first(), "element 1")
         self.assertEqual(self.list.get_last(), "element 1")
@@ -164,23 +164,23 @@ class TestSinglyLinkedList(unittest.TestCase):
         self.list.make_empty()
         self.add_elements(1)
         self.assertEqual(self.list.remove(0), "element 1")
-        
+
         with self.assertRaises(InvalidPositionException):
             self.list.remove(0)
 
         with self.assertRaises(EmptyListException):
             self.list.get(0)
-        
+
         with self.assertRaises(EmptyListException):
             self.list.get_last()
-        
+
         with self.assertRaises(EmptyListException):
             self.list.get_first()
-        
+
         self.assertTrue(self.list.is_empty())
-        
+
         self.assertEqual(self.list.find("element 1"), -1)
-        
+
         self.add_elements(1)
         self.assertEqual(self.list.get_first(), "element 1")
         self.assertEqual(self.list.get_last(), "element 1")
