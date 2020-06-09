@@ -75,7 +75,7 @@ class HashTable(Dictionary):
 
     def keys(self):
         list_keys = SinglyLinkedList()
-        for i in range(array_size):
+        for i in range(self.array_size):
             colision_list = self.table[i]
             it = colision_list.iterator()
             while it.has_next():
@@ -85,7 +85,7 @@ class HashTable(Dictionary):
 
     def values(self):
         list_values = SinglyLinkedList()
-        for i in range(array_size):
+        for i in range(self.array_size):
             colision_list = self.table[i]
             it = colision_list.iterator()
             while it.has_next():
@@ -95,7 +95,7 @@ class HashTable(Dictionary):
 
     def items(self):
         list_items = SinglyLinkedList()
-        for i in range(array_size):
+        for i in range(self.array_size):
             colision_list = self.table[i]
             it = colision_list.iterator()
             while it.has_next():
