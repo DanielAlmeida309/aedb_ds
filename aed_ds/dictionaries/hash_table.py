@@ -73,11 +73,35 @@ class HashTable(Dictionary):
         if noElement == 0:
             raise NoSuchElementException()
 
-    def keys(self): pass
+    def keys(self):
+        list_keys = SinglyLinkedList()
+        for i in range(array_size):
+            colision_list = self.table[i]
+            it = colision_list.iterator()
+            while it.has_next():
+                current_item = it.next()
+                list_keys.insert_last(current_item.get_key())
+        return list_keys
 
-    def values(self): pass
+    def values(self):
+        list_values = SinglyLinkedList()
+        for i in range(array_size):
+            colision_list = self.table[i]
+            it = colision_list.iterator()
+            while it.has_next():
+                current_item = it.next()
+                list_values.insert_last(current_item.get_values())
+        return list_values
 
-    def items(self): pass
+    def items(self):
+        list_items = SinglyLinkedList()
+        for i in range(array_size):
+            colision_list = self.table[i]
+            it = colision_list.iterator()
+            while it.has_next():
+                current_item = it.next()
+                list_items.insert_last(current_item)
+        return list_items
 
     def hash_function(self, k):
         return sum([ord(c) for c in k]) % self.array_size
