@@ -1,9 +1,9 @@
 from .tad_dictionary import Dictionary
 from ..exceptions import NoSuchElementException, DuplicatedKeyException
 from ..lists.singly_linked_list import SinglyLinkedList
-from .item import Item 
+from .item import Item
 
-import ctypes 
+import ctypes
 
 class HashTable(Dictionary):
     def __init__(self, size=101):
@@ -21,7 +21,16 @@ class HashTable(Dictionary):
     def is_full(self):
         return self.num_elements == self.array_size
 
-    def get(self, k): pass
+    def get(self, k):
+        idx = self.hash_function(k)
+        colision_list = self.table[idx]
+        it = colision_list.iterator()
+        while it.has_next():
+            current_item = it.next()
+            if current_item.get_key() == k:
+                return current_item.get_value()
+        raise NoSuchElementException()
+
 
     def insert(self, k, v):
         # Check if it has key
@@ -36,11 +45,32 @@ class HashTable(Dictionary):
         # Insert the item in the colision list
         self.table[idx].insert_last(item)
         # Update the number of elements
-        self.num_elements += 1    
+        self.num_elements += 1
 
-    def update(self, k, v): pass
+    def update(self, k, v):
+        idx = self.hash_function(k)
+        colision_list = self.table[idx]
+        it = colision_list.iterator()
+        while it.has_next():
+            current_item = it.next()
+            if current_item.get_key() == k:
+                current_item.set_value(v)
+        raise NoSuchElementException()
 
-    def remove(self, k): pass
+    def remove(self, k):
+        idx = self.hash_function(k)
+        colision_list = self.table[idx]
+        it = colision_list.iterator()
+        pos = 0
+        noElement = 0
+        while it.has_next():
+            current_item = it.next()
+            if current_item.get_key() == k:
+                noElement = 1
+                colision_list.remove(pos)
+            pos += 1
+        if noElement == 0:
+            raise NoSuchElementException()
 
     def keys(self): pass
 
@@ -52,7 +82,7 @@ class HashTable(Dictionary):
         return sum([ord(c) for c in k]) % self.array_size
 
     def has_key(self, k):
-        idx = self.hash_function(k) # O(1)    
+        idx = self.hash_function(k) # O(1)
         colision_list = self.table[idx]
         it = colision_list.iterator()
         while it.has_next():
