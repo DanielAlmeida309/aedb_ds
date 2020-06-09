@@ -68,6 +68,7 @@ class HashTable(Dictionary):
             if current_item.get_key() == k:
                 noElement = 1
                 colision_list.remove(pos)
+                self.num_elements -= 1
             pos += 1
         if noElement == 0:
             raise NoSuchElementException()
