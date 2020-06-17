@@ -138,8 +138,6 @@ class SinglyLinkedList(List):
     # Range of valid positions: 0, ..., size()-1.
     # Throws InvalidPositionException.
     def remove(self, position):
-        if self.size() == 0:
-            raise InvalidPositionException()
         if self.count != 0:
             if position == 0:
                 return self.remove_first()

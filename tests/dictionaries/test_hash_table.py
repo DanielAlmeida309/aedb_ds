@@ -13,7 +13,7 @@ class TestHashTable(unittest.TestCase):
             k = f"key_{i+1+shift}"
             v = f"value_{i+1+shift}"
             self.table.insert(k, v)
-    
+
     def remove_items(self, quantity, shift=0):
         for i in range(quantity):
             k = f"key_{i+1+shift}"
@@ -77,7 +77,7 @@ class TestHashTable(unittest.TestCase):
         self.assertEqual(self.table.keys().size(), 5)
         self.assertNotEqual(self.table.keys().find("key_1"), -1)
 
-    def test_values(self):        
+    def test_values(self):
         self.assertEqual(self.table.values().size(), 0)
         self.insert_items(5)
         self.assertEqual(self.table.values().size(), 5)
@@ -92,6 +92,6 @@ class TestHashTable(unittest.TestCase):
             item = it.next()
             self.assertIn(item.get_key(), [f"key_{i+1}" for i in range(5)])
             self.assertIn(item.get_value(), [f"value_{i+1}" for i in range(5)])
-            
+
 if __name__ == "__main__":
     unittest.main()

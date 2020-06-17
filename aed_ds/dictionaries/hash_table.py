@@ -48,30 +48,34 @@ class HashTable(Dictionary):
         self.num_elements += 1
 
     def update(self, k, v):
-        idx = self.hash_function(k)
-        colision_list = self.table[idx]
-        it = colision_list.iterator()
-        while it.has_next():
-            current_item = it.next()
-            if current_item.get_key() == k:
-                current_item.set_value(v)
-        raise NoSuchElementException()
+        if not self.has_key(k):
+            raise NoSuchElementException()
+        else:
+            idx = self.hash_function(k)
+            colision_list = self.table[idx]
+            it = colision_list.iterator()
+            while it.has_next():
+                current_item = it.next()
+                if current_item.get_key() == k:
+                    current_item.set_value(v)
+
 
     def remove(self, k):
-        idx = self.hash_function(k)
-        colision_list = self.table[idx]
-        it = colision_list.iterator()
-        pos = 0
-        noElement = 0
-        while it.has_next():
-            current_item = it.next()
-            if current_item.get_key() == k:
-                noElement = 1
-                colision_list.remove(pos)
-                self.num_elements -= 1
-            pos += 1
-        if noElement == 0:
+        if not self.has_key(k):
             raise NoSuchElementException()
+        else:
+            idx = self.hash_function(k)
+            colision_list = self.table[idx]
+            it = colision_list.iterator()
+            while it.has_next():
+                current_item = it.next()
+                if current_item.get_key() == k:
+                    pst = colision_list.find(current_item)
+                    value = current_item.get_value()
+                    colision_list.remove(pst)
+                    self.num_elements -= 1
+                    return value
+
 
     def keys(self):
         list_keys = SinglyLinkedList()
@@ -90,7 +94,7 @@ class HashTable(Dictionary):
             it = colision_list.iterator()
             while it.has_next():
                 current_item = it.next()
-                list_values.insert_last(current_item.get_values())
+                list_values.insert_last(current_item.get_value())
         return list_values
 
     def items(self):
