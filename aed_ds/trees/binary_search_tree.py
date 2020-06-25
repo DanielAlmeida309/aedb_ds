@@ -72,7 +72,36 @@ class BinarySearchTree(OrderedDictionary, Tree):
 
     # Removes the key k, and the value associated with it.
     # Throws NoSuchElementException
-    def remove(self, k): pass
+    def remove(self, k):
+        if self.root = None:
+            raise NoSuchElementException
+        else:
+            self.root = self.remove_key(self.root, k)
+
+    def remove_key(self, root, k, previous_root = None):
+        if root.get_key() < k:
+            self.remove_key(root.get_right_child(), k, root)
+        elif root.get_key() > k:
+            self.remove_key(root.get_left_child(), k, root)
+        else:
+            if root.is_leaf():
+                if self.size() == 1:
+                    root = None
+                    self.num_elements() -= 1
+                else:
+                    if previous_root.get_right_child().get_key() == k:
+                        current_root = previous_root.get_right_child()
+                        current_root = None
+                        self.num_elements() -= 1
+                    elif previous_root.get_left_child().get_key() == k:
+                        current_root = previous_root.get_left_child()
+                        current_root = None
+                        self.num_elements() -= 1
+            elif root.get_right_child() != None:
+                pass
+            elif root.get_left_child() != None:
+                pass
+
 
     # Returns a List with all the keys in the dictionary.
     def keys(self): pass
@@ -97,6 +126,19 @@ class BinarySearchTree(OrderedDictionary, Tree):
         if root.get_left_child() is None:
             return root
         return self.get_min_node(root.get_left_child())
+
+    # Returns the element with the largest key
+    # Throws EmptyTreeException
+    def get_max_element(self):
+        if self.is_empty():
+            raise EmptyTreeException()
+        else:
+            return self.get_max_node(self.root).get_element()
+
+    def get_max_node(self, root):
+        if root.get_right_child() is None:
+            return root
+        return self.get_max_node(root.get_right_child())
 
     # Returns the element with the largest key
     # Throws EmptyTreeException
